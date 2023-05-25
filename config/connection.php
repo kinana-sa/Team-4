@@ -17,7 +17,7 @@ public function getConnection(){
         // $conn = new PDO("mysql:host=$this->db_params['host'];dbname=$this->db_params['database'])", $this->db_params['username'], $this->db_params['password']);
         // // set the PDO error mode to exception
         // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      } catch(Exception $e) {
+      } catch(\Exception $e) {
         die("Connection failed: " . $e->getMessage());
       }
     return $conn;
