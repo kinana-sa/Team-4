@@ -73,7 +73,7 @@ class Family extends Model{
     
     public static function getFamiliesByAddress($address)
     {
-        $sql = "SELECT * FROM families WHERE address = '$address'";
+        $sql = "SELECT * FROM families WHERE address_id = '$address'";
         $result = mysqli_query($this->conn, $sql);
 
         $families = array();
