@@ -1,9 +1,14 @@
 <?php 
-namespace App\controller;
-require_once __DIR__.'/../models/User.php';
-require_once 'BaseController.php';
+
+namespace App\Controllers;
+
 use App\Models\User;
-use App\Controllers\BaseController;
+require_once __DIR__."/../models/User.php";
+require_once "BaseController.php";
+
+use App\Database\Connection;
+
+require_once __DIR__. "/../../config/connection.php";
 
 class UserController extends BaseController{
     

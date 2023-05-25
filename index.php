@@ -1,17 +1,16 @@
 <?php
 
-require_once "config/connection.php";
-//require_once "app/controllers/UserController.php";
+require_once "app/controllers/UserController.php";
 require_once "app/controllers/FamilyController.php";
 
-//use App\Controllers\UserController;
 use App\Controllers\FamilyController;
+use App\Controllers\UserController;
 use App\Config\Connection;
 //use App\Models\User;
-$db = new Connection();
-$conn = $db->getConnection();
-//$userController = new UserController($conn);
 $familyController = new FamilyController();
+
+$userController = new UserController();
+
 
 define('BASE_PATH',"/task/");
 $URL = $_GET['url'] ??"index";
@@ -36,9 +35,18 @@ switch($URL)
     case "delete":
         $familyController->delete();
         break;
-        case "search":
+    case "search":
             $familyController->search();
             break;
+    case "login":
+        $userController->login();
+        break;
+    case "register":
+         $userController->register();
+        break;
+    // case "search":
+    //     $familyController->search();
+    //     break;
     
     default :
         $familyController->index();

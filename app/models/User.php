@@ -1,6 +1,9 @@
 <?php 
 namespace App\Controllers;
 use App\Models\Model;
+
+require_once "Model.php";
+
 class User extends Model{
 
     protected $name;
@@ -69,11 +72,20 @@ $this->email=$e;
      
     
     }  
-    public function delete($id)
+    public function delete()
     { 
-        $sql="DELETE FROM users WHERE id='$id' ";
-      $stmt=mysqli_query($this->conn,$sql);
-
-        
+        $sql="DELETE FROM users WHERE id='$this->id'";
+        $stmt=mysqli_query($this->conn,$sql);
     } 
+    public function save(){
+        if($this->id){
+            $result="UPDATE users SET name='$this->name' , email='$this->email', password='$this->password WHERE id='$this->id'";
+            $ss= mysqli_query($this->conn,$result);
+            }
+        else{
+            $s1="INSERT INTO users (name , email , password ) VALUES ('$this->name', '$this->email' , '$this->password' )";
+            $result2=mysqli_query($this->conn,$s1);
+            $this->id=mysqli_insert_id($this->conn);
+            }
+        }
 }

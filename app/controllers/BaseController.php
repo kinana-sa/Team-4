@@ -4,12 +4,6 @@ namespace App\Controllers;
 
 class BaseController {
 
-    protected $conn;
-
-    public function __construct($conn) {
-
-        $this->conn = $conn;
-    }
 
     
     protected function validate($text){

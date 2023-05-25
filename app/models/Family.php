@@ -5,12 +5,6 @@ namespace App\Models;
 require_once "Model.php";
 
 class Family extends Model{
-     
-
-
-    public static function getAllFamilies()
-    {
-        $sql = "SELECT * FROM families";
 
     protected string $first_name;
     protected string $middle_name;
@@ -79,12 +73,31 @@ class Family extends Model{
 
 
 
-}
-
-    
-    public static function getFamiliesByAddress($address)
+    public function getAllFamilies()
     {
-        $sql = "SELECT * FROM families WHERE address = '$address'";
+        $sql = "SELECT * FROM families";
+        $result = $this->conn->query($sql);
+
+        $families = array();
+        while($row = mysqli_fetch_assoc($result))
+        {$family = new Family();
+            $family->setId($row["id"]);
+            $family->setFirstName($row["first_name"]);
+            $family->setMiddleName($row["middle_name"]);
+            $family->setLastName($row["last_name"]);
+            $family->setMembers($row["members"]);
+            $family->setPhone($row["phone"]);
+            $family->setJobStatus($row["job_status"]);
+            $family->setAddress($row["address_id"]);
+
+            $families[] = $family;
+            }
+        return $families;
+    }
+    
+    public  function getFamiliesByAddress($address)
+    {
+        $sql = "SELECT * FROM families join address on families.address_id= address.id WHERE name = '$address'";
         $result = mysqli_query($this->conn, $sql);
 
         $families = array();
@@ -107,7 +120,7 @@ class Family extends Model{
     }
 
 
-    public static function getFamilyById($id)
+    public  function getFamilyById($id)
     {
         $sql = "SELECT * FROM families WHERE id = '$id'";
         $result = mysqli_query($this->conn, $sql);
@@ -115,21 +128,33 @@ class Family extends Model{
         $row = mysqli_fetch_assoc($result);
     
         $family = new Family();
+        $family->setId($row["id"]);
         $family->setFirstName($row["first_name"]);
         $family->setMiddleName($row["middle_name"]);
         $family->setLastName($row["last_name"]);
         $family->setMembers($row["members"]);
         $family->setPhone($row["phone"]);
         $family->setJobStatus($row["job_status"]);
+        $family->setAddress($row["address_id"]);
         return $family;
     }
 
-
-public function delete($id)
+   public function delete()
 {
-    $sql="DELETE FROM families WHERE id = '$id'";
+    $sql="DELETE FROM families WHERE id = '$this->id'";
     $result=mysqli_query($this->conn,$sql);
     
 }
+public function save(){
+    if($this->id){
+        $result="UPDATE families SET first_name='$this->first_name' , middle_name='$this->middle_name', last_name='$this->last_name', members='$this->members', phone='$this->phone', job_status='$this->job_status', address_id='$this->address' WHERE id='$this->id'";
+        $ss= mysqli_query($this->conn,$result);
+        }
+    else{
+        $s1="INSERT INTO families (first_name , middle_name , last_name , members , phone , job_status , address_id ) VALUES ('$this->first_name', '$this->middle_name') , '$this->last_name' , '$this->members', '$this->phone', '$this->job_status', '$this->address'";
+        $result2=mysqli_query($this->conn,$s1);
+        $this->id=mysqli_insert_id($this->conn);
+        }
+    }
 }
 

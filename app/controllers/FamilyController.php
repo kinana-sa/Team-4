@@ -6,12 +6,18 @@ use App\Models\Family;
 require_once __DIR__."/../models/Family.php";
 require_once "BaseController.php";
 
+use App\Database\Connection;
+
+require_once __DIR__. "/../../config/connection.php";
+
 class FamilyController extends BaseController
 {
     public function index()
     {
-        $f = Family::getAllFamilies();
-        $this->render("family/index", compact("f"));
+        $family= new Family();
+        $families = $family->getAllFamilies();
+        
+        $this->render("family/index", compact("families"));
     }
 
     public function create()
@@ -34,17 +40,19 @@ class FamilyController extends BaseController
        } 
     }
     public function edit()
-    {
+    {   
         $id =$_GET["id"];
-        $f= Family::getFamilyById( $id);
+        $family= new Family();
+        $f= $family->getFamilyById($id);
         $this->render("family/edit",compact("f"));
     }
     public function update()
     {
 
         if($_SERVER['REQUEST_METHOD']==='POST'){
-        $id =$_GET["id"];
-        $f= Family::getFamilyById($id);
+        $id =$_POST["id"];
+        $family= new Family();
+        $f= $family->getFamilyById($id);
         $f->setFirstName($_POST["first_name"]);
         $f->setMiddleName($_POST["middle_name"]);
         $f->setLastName($_POST["last_name"]);
@@ -56,15 +64,22 @@ class FamilyController extends BaseController
 
 
     } 
+}
     public function search()
     {
         $s =$_POST["search"];
-        $f= Family::getFamiliesByAddress($s);
-        $this->render("family/index", compact("f"));
+        $family= new Family();
+        
+        $families= $family->getFamiliesByAddress($s);
+        
+        $this->render("family/index", compact("families"));
     }
     public function delete()
     {  $id=$_GET["id"];
-        $f=new Family();
-        $f->delete($id);
+        $family= new Family();
+        
+        $f= $family->getFamilyById($id);
+        $f->delete();
+        header("Location: test/index");
     }
 }

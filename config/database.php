@@ -3,8 +3,7 @@ return [
     'host'=>'localhost',
     'username'=>'root',
     'password'=>'',
-    'database'=>'data2',
+    'database'=>'data2'
 
-]
-;
+];
 ?>

@@ -12,7 +12,8 @@ class Connection{
 
 public function getConnection(){
     try {
-      $conn = mysqli_connect($this->params["host"],$this->params["username"],$this->params["password"],$this->params["database"]);
+      //$conn = mysqli_connect("$this->params["host"]",$this->params["username"],$this->params["password"],$this->params["database"]);
+      $conn = mysqli_connect("localhost","root","","data2");
             
         // $conn = new PDO("mysql:host=$this->db_params['host'];dbname=$this->db_params['database'])", $this->db_params['username'], $this->db_params['password']);
         // // set the PDO error mode to exception

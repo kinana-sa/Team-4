@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <form method="POST" action="edit">
+    <form method="POST" action="update">
         <label>First Name :</label>
         <input type='text' name='first_name' value='<?= $results->getFirstName() ?>'><br>
         
