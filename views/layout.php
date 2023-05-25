@@ -12,7 +12,11 @@
     <li> <a href= "/task/index"> Users</a> </li>
     <li> <a href= "/task/course_index">Families</a></li>
     <li> <a href= "/task/logout">Logout</a> </li>
-
+    <form method="post" action="search">
+        search by address:
+        <input type="text" name="search">
+                        <input type = "submit" value ="search">
+    </form>
     <main>
         <?php require "views/$view.php"; ?>
     </main>
