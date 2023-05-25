@@ -2,7 +2,7 @@
 
 <nav>
         <ul>
-            <li><a href="/Team-4/">Home</a></li>
+            <li><a href="/test/create">Create Family</a></li>
             
         </ul>
     </nav>

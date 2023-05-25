@@ -12,10 +12,17 @@ require_once __DIR__. "/../../config/connection.php";
 
 class FamilyController extends BaseController
 {
+    Private $family;
+
+    public function __construct()
+    {
+        $this->family= new Family();
+    
+    }
+
     public function index()
     {
-        $family= new Family();
-        $families = $family->getAllFamilies();
+        $families = $this->family->getAllFamilies();
         
         $this->render("family/index", compact("families"));
     }
@@ -42,8 +49,8 @@ class FamilyController extends BaseController
     public function edit()
     {   
         $id =$_GET["id"];
-        $family= new Family();
-        $f= $family->getFamilyById($id);
+        
+        $f= $this->family->getFamilyById($id);
         $this->render("family/edit",compact("f"));
     }
     public function update()
@@ -51,8 +58,8 @@ class FamilyController extends BaseController
 
         if($_SERVER['REQUEST_METHOD']==='POST'){
         $id =$_POST["id"];
-        $family= new Family();
-        $f= $family->getFamilyById($id);
+        
+        $f= $this->family->getFamilyById($id);
         $f->setFirstName($_POST["first_name"]);
         $f->setMiddleName($_POST["middle_name"]);
         $f->setLastName($_POST["last_name"]);
