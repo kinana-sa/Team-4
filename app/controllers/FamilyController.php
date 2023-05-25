@@ -63,7 +63,8 @@ class FamilyController extends BaseController
         $this->render("family/index", compact("f"));
     }
     public function delete()
-    {
-        
+    {  $id=$_GET["id"];
+        $f=new Family();
+        $f->delete($id);
     }
 }
