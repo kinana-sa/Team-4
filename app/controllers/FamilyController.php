@@ -15,20 +15,18 @@ class FamilyController extends BaseController
     }
 
     public function create()
-    {
+    { 
        if($_SERVER["REQUEST_METHOD"]==="POST")
        {
-            $fname = $_POST["fname"];
-            $add = $_POST["address"];
             $f = new Family();
-            $f->setFirstName($fname);
-            $f->setMiddleName($fname);
-            $f->setLastName($fname);
-            $f->setMembers(5);
-            $f->setPhone("09999");
-            $f->setAddress($add);
-            $f->setJobStatus("employeed");
-            $f->save($this->conn);
+            $f->setFirstName($_POST["first_name"]);
+            $f->setMiddleName($_POST["middle_name"]);
+            $f->setLastName($_POST["last_name"]);
+            $f->setMembers($_POST["members"]);
+            $f->setPhone($_POST["phone"]);
+            $f->setJobStatus($_POST["job_status"]);
+            $f->setAddress($_POST["address"]);
+            $f->save();
        }
        else
        {
@@ -43,12 +41,21 @@ class FamilyController extends BaseController
     }
     public function update()
     {
+
+        if($_SERVER['REQUEST_METHOD']==='POST'){
         $id =$_GET["id"];
         $f= Family::getFamilyById($id);
-        $f->setFirstName($_POST["name"]);
-        $f->save($this->conn);
-        header("Location: /task/");
-    }
+        $f->setFirstName($_POST["first_name"]);
+        $f->setMiddleName($_POST["middle_name"]);
+        $f->setLastName($_POST["last_name"]);
+        $f->setMembers($_POST["members"]);
+        $f->setPhone($_POST["phone"]);
+        $f->setJobStatus($_POST["job_status"]);
+        $f->setAddress($_POST["address"]);
+        $f->save();
+
+
+    } 
     public function search()
     {
         $s =$_POST["search"];
