@@ -70,6 +70,29 @@ class Family extends Model{
         $this->address = $address;
     }
 
+    
+    public static function getFamiliesByAddress($address)
+    {
+        $sql = "SELECT * FROM families WHERE address = '$address'";
+        $result = mysqli_query($this->conn, $sql);
+
+        $families = array();
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $family = new Family();
+            $family->setId($row["id"]);
+            $family->setFirstName($row["first_name"]);
+            $family->setMiddleName($row["middle_name"]);
+            $family->setLastName($row["last_name"]);
+            $family->setMembers($row["members"]);
+            $family->setPhone($row["phone"]);
+            $family->setJobStatus($row["job_status"]);
+            $family->setAddress($row["address"]);
+
+            $families[] = $family;
+        }
+        return $families;
+    }
 
 
 }
